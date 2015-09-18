@@ -629,13 +629,13 @@ class X509Extension(object):
 
         :param typename: The name of the type of extension to create. See
             http://openssl.org/docs/apps/x509v3_config.html#STANDARD_EXTENSIONS
-        :type typename: :py:data:`str`
+        :type typename: :py:data:`bytes`
 
         :param bool critical: A flag indicating whether this is a critical
             extension.
 
         :param value: The value of the extension.
-        :type value: :py:data:`str`
+        :type value: :py:data:`bytes`
 
         :param subject: Optional X509 certificate to use as subject.
         :type subject: :py:class:`X509`
