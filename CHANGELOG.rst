@@ -16,6 +16,9 @@ Deprecations:
 Changes:
 ^^^^^^^^
 
+- Added ``OpenSSL.SSL.Context.set_min_proto_version`` and ``OpenSSL.SSL.Context.set_max_proto_version``
+  to set the minimum and maximum supported TLS version `#985 <https://github.com/pyca/pyopenssl/pull/985>`_.
+
 20.0.1 (2020-12-15)
 -------------------
 
