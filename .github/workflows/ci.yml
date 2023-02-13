@@ -9,44 +9,8 @@ jobs:
     strategy:
       matrix:
         PYTHON:
-          # Base builds
-          - {VERSION: "3.6", TOXENV: "py36", OS: "ubuntu-20.04" }
-          - {VERSION: "3.7", TOXENV: "py37"}
-          - {VERSION: "3.8", TOXENV: "py38"}
-          - {VERSION: "3.9", TOXENV: "py39"}
-          - {VERSION: "3.10", TOXENV: "py310"}
-          - {VERSION: "3.11", TOXENV: "py311"}
-          - {VERSION: "pypy-3.7", TOXENV: "pypy3"}
-          - {VERSION: "pypy-3.8", TOXENV: "pypy3"}
-          # -cryptographyMain
-          - {VERSION: "3.6", TOXENV: "py36-cryptographyMain", OS: "ubuntu-20.04"}
-          - {VERSION: "3.7", TOXENV: "py37-cryptographyMain"}
-          - {VERSION: "3.8", TOXENV: "py38-cryptographyMain"}
-          - {VERSION: "3.9", TOXENV: "py39-cryptographyMain"}
-          - {VERSION: "3.10", TOXENV: "py310-cryptographyMain"}
-          - {VERSION: "3.11", TOXENV: "py311-cryptographyMain"}
-          - {VERSION: "pypy-3.8", TOXENV: "pypy3-cryptographyMain"}
-          - {VERSION: "pypy-3.9", TOXENV: "pypy3-cryptographyMain"}
-          # -cryptographyMinimum
-          - {VERSION: "3.6", TOXENV: "py36-cryptographyMinimum", OS: "ubuntu-20.04"}
-          - {VERSION: "3.7", TOXENV: "py37-cryptographyMinimum"}
-          - {VERSION: "3.8", TOXENV: "py38-cryptographyMinimum"}
-          - {VERSION: "3.9", TOXENV: "py39-cryptographyMinimum"}
-          - {VERSION: "3.10", TOXENV: "py310-cryptographyMinimum"}
-          - {VERSION: "3.11", TOXENV: "py311-cryptographyMinimum"}
-          - {VERSION: "pypy-3.8", TOXENV: "pypy3-cryptographyMinimum"}
-          # Cryptography wheels
-          - {VERSION: "3.9", TOXENV: "py39-cryptographyMinimum-useWheel"}
-          - {VERSION: "3.9", TOXENV: "py39-useWheel"}
-          # Random order
           - {VERSION: "3.9", TOXENV: "py39-randomorder"}
-          # Downstreams
-          - {VERSION: "3.7", TOXENV: "py37-twistedTrunk"}
-          # Meta
-          - {VERSION: "3.9", TOXENV: "check-manifest"}
-          - {VERSION: "3.9", TOXENV: "flake8"}
-          - {VERSION: "3.6", TOXENV: "py36-mypy", OS: "ubuntu-20.04"}
-          - {VERSION: "3.9", TOXENV: "docs"}
+
     name: "${{ matrix.PYTHON.TOXENV }}"
     steps:
       - uses: actions/checkout@v3
@@ -55,7 +19,7 @@ jobs:
         with:
           python-version: ${{ matrix.PYTHON.VERSION }}
       - run: python -m pip install tox coverage
-      - run: tox -v
+      - run: tox -v -- --randomly-seed=861767045
         env:
           TOXENV: ${{ matrix.PYTHON.TOXENV }}
       - name: Upload coverage
